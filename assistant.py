@@ -1,4 +1,3 @@
-from patient import Patient
 
 
 class Assistant:
@@ -17,8 +16,7 @@ class Assistant:
         self._password = password
         self._contract_duration = contract_duration             # By month
         
-    def assign_patient(self, assigned_patient: Patient):
+    def assign_patient(self, assigned_patient):
         self._assigned_patient = assigned_patient
         
-    
     
