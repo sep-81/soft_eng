@@ -47,9 +47,7 @@ class Facade:
         print(self._health_packages[selected_package_index].show_package())
         print("Please type \"Yes\" to pay the cost of this package via your online card: ")
         input()
-        
-    
-    
+
         
             
     

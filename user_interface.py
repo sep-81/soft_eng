@@ -3,6 +3,7 @@ from file import PatientFile
 from assistant import Assistant
 from health_package import HealthPackage
 from facade import Facade
+from DAO import DAO
 
 
 def init_obejects():
@@ -22,11 +23,31 @@ def init_health_packages():
     health_packages = [health_package1, health_package2, health_package3]
     return health_packages
 
+def init_patient_packages(dao: DAO):
+    patient_packages = []
+    patient_packages = dao.read_paitient_package()
+    return patient_packages
+
+def write_patient_packages(dao: DAO, patient_packages: list[HealthPackage]):
+    dao.write_paitient_package(patient_packages)
+
 if __name__ == '__main__':
     patient, assitant = init_obejects()
     health_packages = init_health_packages()
     facade = Facade(patient, assitant, health_packages)
+    # how about to move everything to the facade?
+    dao = DAO()
+    init_patient_packages
+
     while (True):
-        command = input();
+        command = input()
         if(command == 'request_package'):
             patient.request_package(facade)
+        elif(command == 'show_package'):
+            pass
+        elif(command == 'exit'):
+            write_patient_packages()
+            break
+        
+
+
