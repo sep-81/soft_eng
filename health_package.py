@@ -1,5 +1,4 @@
-
-
+import PySimpleGUI as sg
 
 class HealthPackage:
     def __init__(self,
@@ -13,10 +12,20 @@ class HealthPackage:
         self._estimated_cost = estimated_cost
     
     def show_package(self):
-        print("health service: ", self._health_service)
-        print("execution_dates: ", self._execution_dates)
-        print("doctor_id: ", self._doctor_id)
-        print("estimated_cost: ", self._estimated_cost)
+
+        layout = [
+            [sg.Push(), sg.Text('Health Service'), sg.Push(), sg.Text(self._health_service), sg.Push()],
+            [sg.Push(), sg.Text('Execution Dates'), sg.Push(), sg.Text(self._execution_dates), sg.Push()],
+            [sg.Push(), sg.Text('Doctor ID'), sg.Push(), sg.Text(self._doctor_id), sg.Push()],
+            [sg.Push(), sg.Text('Estimated Cost'), sg.Push(), sg.Text(self._estimated_cost), sg.Push()], 
+        ]
+
+        window = sg.Window('Health Package', layout)
+        while True:
+            event, values = window.read()
+            if event == sg.WIN_CLOSED:
+                break
+        window.close()
 
     def get_package_info_string(self):
         str = f'health service: {self._health_service}\n'

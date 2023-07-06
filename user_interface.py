@@ -10,11 +10,9 @@ WINDOW_SIZE = (800, 600)
 
 def init_objects():
     patient = Patient("Alireza", "Alireza1", "123456", "09121927732")
-    file = PatientFile("Open", "Empty", "Height: 182, Weight: 81")
+    file = PatientFile("Open", "Empty", "Height: 182, Weight: 81", 1000000)
     assistant = Assistant("Sepehr", "Sepehr1", 112, 5, "123456", 12)
     patient.assign_file(file)
-    # patient.assign_assistant(assistant)
-    # assistant.assign_patient(patient)
     return patient, assistant
 
 def init_health_packages():
@@ -34,12 +32,14 @@ def write_patient_packages(dao: DAO, patient_packages: list[HealthPackage]):
 
 def create_welcome_page():
     layout = [
-        [sg.Push(), sg.Text("Welcome to the hospital!", font=("Helvetica", 20)), sg.Push()],
-        [sg.Push(), sg.Text("Loading initial data...", font=("Helvetica", 15)), sg.Push()],
-        [sg.Push(), sg.ProgressBar(100, orientation='h', size=(20, 20), key='progressbar', pad=(0, 40)), sg.Push()],
+        [sg.Push(), sg.Text("Welcome!", font=("Helvetica", 23)), sg.Push()],
+        [sg.Push(), sg.Text("To Your Hospital", font=("Helvetica", 23)), sg.Push()],
+        [sg.Push(), sg.Text("We Care About You", font=("Helvetica", 18), pad=(0, 50)), sg.Push()],   
+        [sg.Push(), sg.ProgressBar(100, orientation='h', size=(20, 20), key='progressbar', pad=(0, 10)), sg.Push()],
+        [sg.Push(), sg.Text("Loading initial data...", font=("Helvetica", 10)), sg.Push()],
     ]
 
-    window = sg.Window('Welcome', layout, size=WINDOW_SIZE, element_justification='center', margins=(50, 200))
+    window = sg.Window('Welcome', layout, size=WINDOW_SIZE, element_justification='center', margins=(0, 100))
     progress_bar = window['progressbar']
 
     for i in range(100):
@@ -82,12 +82,11 @@ if __name__ == '__main__':
             facade.show_available_packages()
 
         elif(event == '-My-Packages-'):
-            packages = patient.get_res_packages()
-            for package in packages:
-                package.show_package()
+            patient.show_res_packages()
 
         elif(event == sg.WIN_CLOSED or event == 'Exit'):
-            # dao.write_health_packages(patient.get_res_packages(), "data/HealthPackages.txt")
+            write_path = "data/" + patient._nickname + ".txt"
+            dao.write_health_packages(patient.get_res_packages(), write_path)
             break
         
 

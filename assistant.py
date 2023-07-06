@@ -1,4 +1,4 @@
-
+from health_package import HealthPackage
 
 class Assistant:
     def __init__(self,
@@ -19,4 +19,6 @@ class Assistant:
     def assign_patient(self, assigned_patient):
         self._assigned_patient = assigned_patient
         
+    def can_validate(self, package: HealthPackage) -> bool:
+        return True
     
