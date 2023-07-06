@@ -23,11 +23,12 @@ def init_health_packages():
     health_packages = [health_package1, health_package2, health_package3]
     return health_packages
 
-def init_patient_packages(dao: DAO):
-    patient_packages = []
+def init_patient_packages(dao: DAO, paient: Patient):
     patient_packages = dao.read_paitient_package()
-    return patient_packages
-
+    for package in patient_packages:
+        paient.assign_package(package)
+    
+      
 def write_patient_packages(dao: DAO, patient_packages: list[HealthPackage]):
     dao.write_paitient_package(patient_packages)
 
@@ -36,17 +37,23 @@ if __name__ == '__main__':
     health_packages = init_health_packages()
     facade = Facade(patient, assitant, health_packages)
     # how about to move everything to the facade?
-    dao = DAO()
-    init_patient_packages
+    dao = DAO("patient_req_pack.txt")
+    init_patient_packages(dao, patient)
 
     while (True):
         command = input()
         if(command == 'request_package'):
             patient.request_package(facade)
         elif(command == 'show_package'):
-            pass
+            # show available packages
+            facade.show_available_packages()
+        elif(command == 'show_patient_packages'):
+            # show patient packages
+            packages = patient.get_res_packages()
+            for package in packages:
+                package.show_package()
         elif(command == 'exit'):
-            write_patient_packages()
+            write_patient_packages(dao, patient.get_res_packages())
             break
         
 

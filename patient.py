@@ -1,3 +1,4 @@
+from typing import Any
 from assistant import Assistant
 from file import PatientFile
 # from facade import Facade
@@ -29,4 +30,5 @@ class Patient:
     def request_package(self, facade):
         facade.handel_package_request()
       
-    
+    def get_res_packages(self) -> list[HealthPackage]:
+        return self._reserved_packages
