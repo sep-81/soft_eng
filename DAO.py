@@ -6,7 +6,7 @@ class DAO:
         self._filename = filename
 
     
-    def read_paitient_package(self, fileName: str = "") -> list[HealthPackage]:
+    def read_health_packages(self, fileName: str = "") -> list[HealthPackage]:
         if fileName == "":
             fileName = self._filename
         # read from the file
@@ -22,7 +22,7 @@ class DAO:
 
         return res_packages
     
-    def write_paitient_package(self, patientPackages: list[HealthPackage],
+    def write_health_packages(self, patientPackages: list[HealthPackage],
                                fileName: str = ""):
         if fileName == "":
             fileName = self._filename

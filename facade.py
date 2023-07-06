@@ -14,8 +14,14 @@ class Facade:
         self._assistant = assistant
         self._health_packages = health_packages
         
-        
-    def handel_package_request(self):
+    def Temp_handle_package_request(self):
+        packages_array = [[package._health_service, package._execution_dates, package._doctor_id, package._estimated_cost]\
+                            for package in self._health_packages]
+        packages_layout = [
+
+        ]
+    
+    def handle_package_request(self):
         self.show_available_packages()
         print("--- Please select your desired package: ")
         selected_package_index = int(input())
@@ -28,7 +34,7 @@ class Facade:
     def set_assistant_to_patient(self):
         self._assistant.assign_patient(self._patient)
         self._patient.assign_assistant(self._assistant)
-        
+
     def show_available_packages(self):
         i = 0
         for package in self._health_packages:

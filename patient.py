@@ -28,7 +28,7 @@ class Patient:
         self._reserved_packages.append(package)
     
     def request_package(self, facade):
-        facade.handel_package_request()
+        facade.handle_package_request()
       
     def get_res_packages(self) -> list[HealthPackage]:
         return self._reserved_packages
