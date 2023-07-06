@@ -23,10 +23,16 @@ def init_health_packages():
     return health_packages
 
 def init_patient_packages(dao: DAO, patient: Patient):
-    patient_packages = dao.read_patient_package()
+    try:
+        patient_packages = dao.read_patient_package(patient._nickname)
+    except:
+        patient_packages = []
+        
     for package in patient_packages:
         patient.assign_package(package)
-         
+    
+
+
 def write_patient_packages(dao: DAO, patient_packages: list[HealthPackage]):
     dao.write_paitient_package(patient_packages)
 
@@ -53,13 +59,10 @@ if __name__ == '__main__':
     sg.theme('DarkPurple1')
 
     patient, assitant = init_objects()
-    # health_packages = init_health_packages()
-    # facade = Facade(patient, assitant, health_packages)
-    # how about to move everything to the facade?
     dao = DAO("data/HealthPackages.txt")
     health_packages = dao.read_health_packages()
     facade = Facade(patient, assitant, health_packages)
-    # init_patient_packages(dao, patient)
+    init_patient_packages(dao, patient)
 
     create_welcome_page()
 

@@ -38,7 +38,13 @@ class Patient:
         return self._file._balance >= cost
     
     def exists(self, package: HealthPackage) -> bool:
-        return package in self._reserved_packages
+        for pack in self._reserved_packages:
+            if pack._health_service == package._health_service:
+                if pack._execution_dates == package._execution_dates:
+                    if pack._doctor_id == package._doctor_id:
+                        if pack._estimated_cost == package._estimated_cost:
+                            return True
+        return False
     
     def show_res_packages(self):
 

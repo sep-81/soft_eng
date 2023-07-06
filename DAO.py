@@ -1,4 +1,3 @@
-from patient import Patient
 from health_package import HealthPackage
 
 class DAO:
@@ -31,6 +30,20 @@ class DAO:
           for package in patientPackages:
             pack_info = package.package_info()
             print(pack_info, file=file)
+
+    def read_patient_package(self, patient_nickname) -> list[HealthPackage]:
+        file_name = "data/" + patient_nickname + ".txt"
+        res_packages = []
+        with open(file_name, "r") as file:
+            for line in file:
+                package_info = line.split("$")
+                health_service = package_info[0]
+                execution_dates = package_info[1]
+                doctor_id = int(package_info[2])
+                estimated_cost = int(package_info[3])
+                res_packages.append(HealthPackage(health_service, execution_dates, doctor_id, estimated_cost))
+
+        return res_packages
         
         
 
